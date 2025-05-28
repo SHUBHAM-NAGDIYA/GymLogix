@@ -1,0 +1,34 @@
+<!-- filepath: c:\Users\shubh\OneDrive\Desktop\GymLogix\GymLogix\Users\templates\signup.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+<html>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+     <!-- Background Image (Customizable) -->
+    <div class="bg-image" id="bgImage"></div>
+
+    <h2>Sign Up</h2>
+    <form method="get" id="user-type-form">
+        <label>Select user type:</label>
+        <select name="user_type" id="user_type" onchange="document.getElementById('user-type-form').submit();">
+            <option value="">-- Select --</option>
+            <option value="enthusiast" {% if user_type == 'enthusiast' %}selected{% endif %}>Fitness Enthusiast</option>
+            <option value="owner" {% if user_type == 'owner' %}selected{% endif %}>Gym Owner</option>
+            <option value="trainer" {% if user_type == 'trainer' %}selected{% endif %}>Trainer</option>
+        </select>
+    </form>
+
+    {% if form %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="user_type" value="{{ user_type }}">
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
+    {% endif %}
+</body>
+</html>
